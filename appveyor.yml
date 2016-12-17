@@ -58,6 +58,10 @@ build:
   # MSBuild verbosity level
   verbosity: normal
 
+before_build:
+  # Prevents warnings caused by Xamarin targets being included (Xamarin is not used in this solution).
+  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#

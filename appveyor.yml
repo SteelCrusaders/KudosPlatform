@@ -27,8 +27,10 @@ image: Visual Studio 2015
 
 install:
   - ps: |
-        Invoke-WebRequest -Uri https://aka.ms/azfunctiontools -OutFile .\WebToolsAzure2015.exe
-        & .\WebToolsAzure2015.exe @('/install','/quiet','/norestart')
+        $WebToolsAzurePath = Join-Path -Path $ENV:Temp -ChildPath 'WebToolsAzure2015.exe'
+        Invoke-WebRequest -Uri https://aka.ms/azfunctiontools -OutFile $WebToolsAzurePath
+        & .\WebToolsAzure2015.exe @('/install','/quiet','/norestart') | Out-Null
+        Remove-Item -Path $WebToolsAzurePath -Force
 
 # enable patching of AssemblyInfo.* files
 assembly_info:

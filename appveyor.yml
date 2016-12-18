@@ -25,9 +25,11 @@ skip_tags: true
 # Build worker image (VM template)
 image: Visual Studio 2015
 
-# enable service required for build/tests
-services:
-  - iis                 # start IIS
+install:
+  - ps: |
+        Invoke-WebRequest -Uri https://aka.ms/azfunctiontools -OutFile .\WebToolsAzure2015.exe
+        & .\WebToolsAzure2015.exe @('/install','/quiet','/norestart')
+        Remove-Item -Path .\WebToolsAzure2015.exe -Force
 
 # enable patching of AssemblyInfo.* files
 assembly_info:

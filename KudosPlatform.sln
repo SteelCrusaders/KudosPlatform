@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29629376-A234-4722-95E6-97A8D77C8284}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		default.ps1 = default.ps1
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{33AD0EE8-D99B-4E14-8CD9-3F56ABEF97A2}") = "KudosYammerMonitor", "KudosYammerMonitor\KudosYammerMonitor.funproj", "{6F392F94-2CEB-4FC5-AE2D-E671F92D5245}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F392F94-2CEB-4FC5-AE2D-E671F92D5245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F392F94-2CEB-4FC5-AE2D-E671F92D5245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F392F94-2CEB-4FC5-AE2D-E671F92D5245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F392F94-2CEB-4FC5-AE2D-E671F92D5245}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -12,3 +12,7 @@ Pull Request testing....
 ## Versions
 
 ### Unreleased
+
+- Renamed PSake _Compile_ task to _Build_ to match usual name.
+- Added Azure PowerShell Module installation to PSake init to allow deployment.
+- Added initial _Deploy_ task to PSake.

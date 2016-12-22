@@ -7,8 +7,6 @@
 The IAG-NZ Dev Guild KudosPlatform for gamifying Yammer
 
 
-Pull Request testing....
-
 ## Versions
 
 ### Unreleased

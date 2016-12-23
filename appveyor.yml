@@ -31,15 +31,13 @@ install:
         Install-Module -Name PowerShellGet -Force
         Remove-Module -Name PowerShellGet -Force
         Install-Module -Name PSake -Repository PSGallery -Force
-        Invoke-Psake -taskList init
 
-# enable patching of AssemblyInfo.* files
-assembly_info:
-  patch: true
-  file: AssemblyInfo.*
-  assembly_version: "1.0.{build}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+build: off
+# build is performed automatically by Psake when tests run
 
 #---------------------------------#
 #       tests configuration       #
@@ -47,6 +45,7 @@ assembly_info:
 
 test:
 # to run your custom scripts instead of automatic tests
+
 test_script:
   - ps: |
         Invoke-Psake -taskList test

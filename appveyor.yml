@@ -28,6 +28,8 @@ image: WMF 5
 install:
   - ps: |
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+        Install-Module -Name PowerShellGet -Force
+        Remove-Module -Name PowerShellGet -Force
         Install-Module -Name PSake -Repository PSGallery -Force
         Invoke-Psake -taskList init
 

@@ -1,6 +1,8 @@
 properties {
   # General properties
   $projectName = 'KudosPlatform'
+  $soluionPath = Join-Path -Path $PSScriptRoot -ChildPath "$projectName.sln"
+  $msBuildPath = 'C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe'
 
   # Get the properties/parameters for deploying to Azure
   if ([String]::IsNullOrEmpty($azureUsername)) {
@@ -69,6 +71,11 @@ task Install -depends Init, Build, Clean {
 }
 
 task Build -depends Init, Clean {
+  $buildParameters = @($soluionPath,'/m','/verbosity:normal')
+  if ($buildLogger) {
+    $buildParameters += @("/logger:`"$loggerPath`"")
+  } # if
+  & $MSBuildPath $buildParameters
   $buildMessage
 }
 

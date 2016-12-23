@@ -42,32 +42,6 @@ assembly_info:
   assembly_informational_version: "{version}"
 
 #---------------------------------#
-#       build configuration       #
-#---------------------------------#
-
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: Any CPU
-
-# build Configuration, i.e. Debug, Release, etc.
-configuration: Release
-
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: KudosPlatform.sln      # path to Visual Studio solution or project
-  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-
-  # MSBuild verbosity level
-  verbosity: normal
-
-before_build:
-  -ps: |
-       # Prevents warnings caused by Xamarin targets being included (Xamarin is not used in this solution).
-       Remove-Item -Path 'C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets'
-
-#---------------------------------#
 #       tests configuration       #
 #---------------------------------#
 

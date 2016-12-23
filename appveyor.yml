@@ -61,25 +61,19 @@ build:
   verbosity: normal
 
 before_build:
-  # Prevents warnings caused by Xamarin targets being included (Xamarin is not used in this solution).
-  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  -ps: |
+       # Prevents warnings caused by Xamarin targets being included (Xamarin is not used in this solution).
+       Remove-Item -Path 'C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets'
 
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
 
 test:
-# scripts to run before tests
-before_test:
-  - ps: Write-Host "Before test"
-
-# scripts to run after tests
-after_test:
-  - ps: Write-Host "After test"
-
 # to run your custom scripts instead of automatic tests
 test_script:
-  - ps: Write-Host "Test"
+  - ps: |
+        Invoke-Psake -taskList test
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -96,3 +90,5 @@ artifacts:
 #---------------------------------#
 
 deploy:
+  - ps: |
+        Invoke-Psake -taskList install

@@ -88,6 +88,20 @@ The _GetAzureSP_ task will return service principal name in Azure AD that should
 Invoke-PSake GetAzureSP
 ```
 
+## AppVeyor
+
+This project contains a continuous integration/continuous delivery pipeline using AppVeyor CI.
+It will deploy this project to an Azure account every time it is committed so that tests can be run on it.
+To enable this, the KudosPlatform project in your AppVeyor account must be configured with the following environment variables defined:
+
+- **azureUsername** - obtained by running the ```CreateAzureSP``` psake task or by running the ```GetAzureSP``` psake task if ```CreateAzureSP``` has already been run on your Azure account.
+- **azurePassword** - should be set when calling the ```CreateAzureSP``` psake task.
+- **azureTenantId** - will be displayed when running the ```GetAzureSP``` or ```CreateAzureSP``` psake tasks.
+
+> Important Note: Make sure you enable variable encryption on each of the variables to ensure that they can't be retrieved from your AppVeyor account.
+
+[![AppVeyor CI KudosPlatform Project Environment Variables](images/appveyor-environment-variables-for-azure.png)]
+
 
 ## Versions
 

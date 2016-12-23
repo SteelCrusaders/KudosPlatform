@@ -83,12 +83,3 @@ artifacts:
 
   # pushing all *.nupkg files in build directory recursively
   - path: '**\*.nupkg'
-
-
-#---------------------------------#
-#     deployment configuration    #
-#---------------------------------#
-
-deploy:
-  - ps: |
-        Invoke-Psake -taskList install

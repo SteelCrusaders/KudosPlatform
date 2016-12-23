@@ -48,7 +48,11 @@ properties {
 
 task default -depends Test
 
-task Install -depends Init, Build, Clean, Test {
+task Test -depends Init, Build, Clean, Install {
+  $testMessage
+}
+
+task Install -depends Init, Build, Clean {
   if (-not $azureCredential) {
     Write-Error -Message 'Installation failed because Azure credentials not provided.'
     return
@@ -62,10 +66,6 @@ task Install -depends Init, Build, Clean, Test {
   Write-SuccessfulTaskInfo -Message 'Successfully logged into Azure Account.'
 
   $installMessage
-}
-
-task Test -depends Init, Build, Clean {
-  $testMessage
 }
 
 task Build -depends Init, Clean {

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "defaultValue": "West US",
+      "type": "String"
+    },
+    "storageAccounts_kpsa_name": {
+      "defaultValue": "kptestplaguehosa",
+      "type": "String"
+    },
+    "serverfarms_kpfa_name": {
+      "defaultValue": "kptestplaguehosp",
+      "type": "String"
+    },
+    "sites_kpfa_name": {
+      "defaultValue": "kptestplaguehofa",
+      "type": "String"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "comments": "",
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "[parameters('storageAccounts_kpsa_name')]",
+      "apiVersion": "2016-01-01",
+      "location": "[parameters('location')]",
+      "tags": {},
+      "properties": {},
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "",
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
+      },
+      "kind": "functionapp",
+      "name": "[parameters('serverfarms_kpfa_name')]",
+      "apiVersion": "2015-08-01",
+      "location": "[parameters('location')]",
+      "properties": {
+        "name": "[parameters('serverfarms_kpfa_name')]",
+        "numberOfWorkers": 0
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "",
+      "type": "Microsoft.Web/sites",
+      "kind": "functionapp",
+      "name": "[parameters('sites_kpfa_name')]",
+      "apiVersion": "2015-08-01",
+      "location": "[parameters('location')]",
+      "properties": {
+        "name": "[parameters('sites_kpfa_name')]",
+        "hostNames": [
+          "kptestplaguehofa.azurewebsites.net"
+        ],
+        "enabledHostNames": [
+          "kptestplaguehofa.azurewebsites.net",
+          "kptestplaguehofa.scm.azurewebsites.net"
+        ],
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('sites_kpfa_name'),'.azurewebsites.net')]",
+            "sslState": 0,
+            "thumbprint": null,
+            "ipBasedSslState": 0
+          },
+          {
+            "name": "[concat(parameters('sites_kpfa_name'),'.scm.azurewebsites.net')]",
+            "sslState": 0,
+            "thumbprint": null,
+            "ipBasedSslState": 0
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_kpfa_name'))]"
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_kpfa_name'))]"
+      ]
+    }
+  ]
+}

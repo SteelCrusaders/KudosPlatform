@@ -166,14 +166,20 @@ All resources created inside the Azure Resource Group will follow a standard nam
 
 - **Storage Account** - _General Purpose_ Locally Redundant Storage for the Kudos Platform. Name: _kp{AzureEnvironment}{AzureUniqueCode}sa_
 - **Function App** - Serverless execution platform using a _Consumption Plan_ and the **storage account** above. Name: _kp{AzureEnvironment}{AzureUniqueCode}fa_
-- **App Service Plan** - this is created automatically when the **function app** is created. Name: _{Location}Plan_
+- **App Service Plan** - this is created automatically when the **function app** is created. Name: _kp{AzureEnvironment}{AzureUniqueCode}sp_
 
 ### ARM Template
 
 The _ARM Template_ is a Resource Manager Group template that will be used to create Azure Resource Groups containing the resources required for by the _KudosPlatform_.
-The _ARM Template_ is defined in a file within the KudosPlatform solution and is used by the PSake Install task to ensure the Azure Resource Group has been created prior to deploying it.
+It can be found within the **KudosAzureResourceGroup** project in the **KudosPlatform** solution and is used by the PSake Install task to ensure the Azure Resource Group has been created prior to deploying it.
 
 The initial _ARM Template_ was created by defining the _Azure Resource Group_ manually and then exporting it as an _ARM Template_ and adding it to the repository and to the Visual Studio solution.
+
+The _ARM Template_ consists of three files:
+
+- **azuredeploy.json**: ARM Template.
+- **azuredeploy.parameters.json**: ARM Template Parameters.
+- **Deploy-AzureResourceGroup.ps1**: PowerShell Script for Deploying ARM Template - this is not required.
 
 ## AppVeyor
 
@@ -193,9 +199,9 @@ To enable this, the KudosPlatform project in your AppVeyor account must be confi
 
 - **azureRGName** - this is the name of the Azure Resource Group that will be used to run tests against.
   It will default to _kptestrg_ if this is not defined.
-- **AzureEnvironment** - this is the environment string that will be used when naming the resources inside the Azure Resource Group.
+- **azureEnvironment** - this is the environment string that will be used when naming the resources inside the Azure Resource Group.
   It will default to _test_ if this is not defined.
-- **AzureUniqueCode** - this is the unique code that will be used to try to ensure all resource names are unique.
+- **azureUniqueCode** - this is the unique code that will be used to try to ensure all resource names are unique.
   It will default to your GitHub username if not defined.
 
 ## Versions
@@ -206,3 +212,4 @@ To enable this, the KudosPlatform project in your AppVeyor account must be confi
 - Added Azure PowerShell Module installation to PSake init to allow deployment.
 - Added initial _Deploy_ task to PSake.
 - Added documentationt to cover Azure installation, ARM Templates and AppVeyor.
+- Added KudosAzureResourceGroup project to solution.

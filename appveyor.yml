@@ -31,13 +31,6 @@ install:
         Install-Module -Name PowerShellGet -Force
         Remove-Module -Name PowerShellGet -Force
         Install-Module -Name PSake -Repository PSGallery -Force
-        $AzureDataCollectionFile = Join-Path `
-          -Path $ENV:AppData `
-          -ChildPath 'Windows Azure Powershell\AzureDataCollectionProfile.json'
-        Set-Content `
-          -Path $AzureDataCollectionFile `
-          -Value '{"enableAzureDataCollection":false}' `
-          -Force
 
 #---------------------------------#
 #       build configuration       #

@@ -104,6 +104,25 @@ task Init {
     Install-Module -Name Azure -Force -AllowClobber
   } # if
 
+  # If Azure Data Collection has not yet been set then disable it because this will
+  # suppress the annoying warning message that the Azure Module will display on first load
+  $AzureDataCollectionPath = Join-Path `
+    -Path $ENV:AppData `
+    -ChildPath 'Windows Azure Powershell'
+  if (-not (Test-Path -Path $AzureDataCollectionPath)) {
+    New-Item -Path $AzureDataCollectionPath -ItemType Directory
+  } # if
+  $AzureDataCollectionFile = Join-Path `
+    -Path $AzureDataCollectionPath `
+    -ChildPath 'AzureDataCollectionProfile.json'
+  if (-not (Test-Path -Path $AzureDataCollectionFile)) {
+    Set-Content `
+      -Path $AzureDataCollectionFile `
+      -Value '{"enableAzureDataCollection":false}' `
+      -Force
+    Write-SuccessfulTaskInfo -Message 'Azure PowerShell Module data collection disabled'
+  } # if
+
   # Install AzureRM PowerShell Module so that we can Install components to Azure
   if (Get-Module -Name AzureRM -ListAvailable) {
     Write-SuccessfulTaskInfo -Message 'Microsoft AzureRM PowerShell Module is already installed'

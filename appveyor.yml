@@ -23,63 +23,32 @@ skip_tags: true
 #---------------------------------#
 
 # Build worker image (VM template)
-image: Visual Studio 2015
+image: WMF 5
 
 install:
   - ps: |
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+        Install-Module -Name PowerShellGet -Force
+        Remove-Module -Name PowerShellGet -Force
         Install-Module -Name PSake -Repository PSGallery -Force
-        Invoke-Psake -taskList init
-
-# enable patching of AssemblyInfo.* files
-assembly_info:
-  patch: true
-  file: AssemblyInfo.*
-  assembly_version: "1.0.{build}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
 
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
 
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: Any CPU
-
-# build Configuration, i.e. Debug, Release, etc.
-configuration: Release
-
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  project: KudosPlatform.sln      # path to Visual Studio solution or project
-  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-
-  # MSBuild verbosity level
-  verbosity: normal
-
-before_build:
-  # Prevents warnings caused by Xamarin targets being included (Xamarin is not used in this solution).
-  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+build: off
+# build is performed automatically by Psake when tests run
 
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
 
 test:
-# scripts to run before tests
-before_test:
-  - ps: Write-Host "Before test"
-
-# scripts to run after tests
-after_test:
-  - ps: Write-Host "After test"
-
 # to run your custom scripts instead of automatic tests
+
 test_script:
-  - ps: Write-Host "Test"
+  - ps: |
+        Invoke-Psake -taskList test
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -89,10 +58,3 @@ artifacts:
 
   # pushing all *.nupkg files in build directory recursively
   - path: '**\*.nupkg'
-
-
-#---------------------------------#
-#     deployment configuration    #
-#---------------------------------#
-
-deploy:
